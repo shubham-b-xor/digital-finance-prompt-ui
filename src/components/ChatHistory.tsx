@@ -88,7 +88,6 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({ messages }) => {
                     </Box>
                 );
             })}
-            <div ref={endRef} />
         </Box>
     );
 };

@@ -42,12 +42,12 @@ const PromptInput: React.FC<PromptInputProps> = ({ onSend, displayHelp }) => {
     return (
         <Paper
             sx={{
-                p: 2,
+                p: 1,
                 position: 'relative',
                 backgroundColor: theme.palette.background.paper,
                 borderRadius: 2,
                 boxShadow: 3,
-                maxWidth: 600,
+                maxWidth: 750,
                 width: '100%',
                 margin: 'auto',
                 display: 'flex',
@@ -75,7 +75,7 @@ const PromptInput: React.FC<PromptInputProps> = ({ onSend, displayHelp }) => {
             </Box>
             <TextField
                 multiline
-                minRows={3}
+                minRows={2}
                 maxRows={6}
                 placeholder="Enter your prompt..."
                 value={prompt}

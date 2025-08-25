@@ -39,7 +39,15 @@ const App: React.FC = () => {
       const botMessage: ChatMessage = {
         id: uuidv4(),
         sender: 'bot',
-        text: `You said: "${prompt}"`,
+        text: userMessage.fileName?
+        `Domain: Investment Portfolio
+Section: Asset Allocation
+🔎 Analyzed Insights:
+Portfolio diversification improved; no single asset class exceeds 35% of total investment.
+Equity exposure increased from 45% to 52%, driven by strong market performance.
+Bond holdings were reduced by 10%, indicating a risk-on shift.
+New entries in alternative investments (e.g., REITs, crypto) account for 6% of total holdings.`
+        :`You said: "${prompt}"`,
       };
       dispatch(addMessage(botMessage)); // <-- dispatch to Redux
     }, 1000);
@@ -68,7 +76,7 @@ const App: React.FC = () => {
               minHeight: 0,
             }}
           >
-            <Toolbar />
+            {/* <Toolbar /> */}
             {messages.length === 0 ? (
               <PromptInput displayHelp={true} onSend={handleSend} />
             ) : (
