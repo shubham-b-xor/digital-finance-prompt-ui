@@ -1,26 +1,87 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { CssBaseline, ThemeProvider, Box, Toolbar } from '@mui/material';
+import { getTheme } from './theme';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import TopBar from './components/TopBar';
+import Sidebar from './components/Sidebar';
+import PromptInput from './components/PromptInput';
+import ChatHistory from './components/ChatHistory';
+import { v4 as uuidv4 } from 'uuid';
+import { addMessage } from './redux/chatSlice';
 
-function App() {
+const drawerWidth = 240;
+
+type ChatMessage = {
+  id: string;
+  sender: 'user' | 'bot';
+  text: string;
+  fileName?: string;
+};
+
+const App: React.FC = () => {
+  const darkMode = useAppSelector((state) => state.ui.darkMode);
+  const sidebarOpen = useAppSelector((state) => state.ui.sidebarOpen);
+  const messages = useAppSelector((state) => state.chat.messages); // <-- use Redux messages
+  const dispatch = useAppDispatch();
+  const theme = getTheme(darkMode ? 'dark' : 'light');
+
+  const handleSend = (prompt: string, file?: File) => {
+    const userMessage: ChatMessage = {
+      id: uuidv4(),
+      sender: 'user',
+      text: prompt,
+      fileName: file?.name,
+    };
+
+    dispatch(addMessage(userMessage)); // <-- dispatch to Redux
+
+    setTimeout(() => {
+      const botMessage: ChatMessage = {
+        id: uuidv4(),
+        sender: 'bot',
+        text: `You said: "${prompt}"`,
+      };
+      dispatch(addMessage(botMessage)); // <-- dispatch to Redux
+    }, 1000);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box display="flex" flexDirection="column" height="100vh">
+        <TopBar />
+        <Box display="flex" flex={1}>
+          <Sidebar />
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              p: 2,
+              transition: theme.transitions.create('margin', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+              }),
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: messages.length === 0 ? 'center' : 'flex-end',
+              alignItems: 'center',
+              minHeight: 0,
+            }}
+          >
+            <Toolbar />
+            {messages.length === 0 ? (
+              <PromptInput displayHelp={true} onSend={handleSend} />
+            ) : (
+              <>
+                <ChatHistory messages={messages} />
+                <PromptInput displayHelp={false} onSend={handleSend} />
+              </>
+            )}
+          </Box>
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
