@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/digital-finance-prompt-ui/static/js/main.d61aa590.js",
+    "index.html": "/digital-finance-prompt-ui/index.html",
+    "main.d61aa590.js.map": "/digital-finance-prompt-ui/static/js/main.d61aa590.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.d61aa590.js"
+  ]
+}
