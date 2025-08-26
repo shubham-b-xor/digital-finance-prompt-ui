@@ -20,6 +20,7 @@ import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { toggleSidebar } from '../redux/uiSlice';
 import { toggleDarkMode } from '../redux/uiSlice';
 import { clearMessages } from '../redux/chatSlice';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -28,12 +29,21 @@ const Sidebar: React.FC = () => {
     const darkMode = useAppSelector((state) => state.ui.darkMode);
     const dispatch = useAppDispatch();
 
+    const navigate = useNavigate();
+
     const handleClose = () => {
+        dispatch(toggleSidebar());
+    };
+
+    const handleSettings = () => {
+        navigate('/settings');
         dispatch(toggleSidebar());
     };
 
     const handleNewChat = () => {
         dispatch(clearMessages());
+        navigate('/');
+        dispatch(toggleSidebar());
     };
 
     if (!sidebarOpen) {
@@ -80,12 +90,12 @@ const Sidebar: React.FC = () => {
                 <Box sx={{ overflow: 'auto' }}>
                     <List>
                         <ListItem disablePadding>
-                            <ListItemButton sx={{ borderRadius: 2, marginLeft: 2, marginRight: 2, boxShadow: 1 }} onClick={handleNewChat}>
+                            <ListItemButton sx={{ borderRadius: 2, marginLeft: 2, marginRight: 2, marginBottom: 2, boxShadow: 4 }} onClick={handleNewChat}>
                                 <PlaylistAddIcon sx={{ marginRight: 2 }} /><ListItemText primary="New Chat" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton sx={{ borderRadius: 2, marginLeft: 2, marginRight: 2, boxShadow: 1 }} onClick={handleNewChat}>
+                            <ListItemButton sx={{ borderRadius: 2, marginLeft: 2, marginRight: 2, marginBottom: 2, boxShadow: 4 }} onClick={handleSettings}>
                                 <SettingsIcon sx={{ marginRight: 2 }} /><ListItemText primary="Settings" />
                             </ListItemButton>
                         </ListItem>
