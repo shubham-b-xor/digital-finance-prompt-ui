@@ -15,7 +15,9 @@ const Home: React.FC = () => {
             sender: 'user',
             message: prompt,
             fileName: files && files.length > 0 ? files.map(f => f.name).join(', ') : undefined,
-            errorCode: -1
+            errorCode: -1,
+            errorMessage: null,
+            erroredProperties: []
         };
 
         dispatch(addMessage(userMessage));
@@ -41,9 +43,10 @@ const Home: React.FC = () => {
                     id: uuidv4(),
                     sender: 'bot',
                     message: data.message ?? data.errorMessage,
-                    errorCode: data.errorCode, 
+                    errorCode: data.errorCode,
                     type: data.type,
-                    erroredProperties: data.erroredProperties
+                    erroredProperties: data.erroredProperties,
+                    errorMessage: null
                 };
                 dispatch(addMessage(botMessage));
             } catch (error) {
@@ -52,7 +55,9 @@ const Home: React.FC = () => {
                     id: uuidv4(),
                     sender: 'bot',
                     message: "Error submitting prompt.",
-                    errorCode: -1
+                    errorCode: -1,
+                    errorMessage: (error as Error).message,
+                    erroredProperties: []
                 };
                 dispatch(addMessage(botMessage));
             }
@@ -62,7 +67,9 @@ const Home: React.FC = () => {
                     id: uuidv4(),
                     sender: 'bot',
                     message: `You said: "${prompt}"`,
-                    errorCode: -1
+                    errorCode: -1,
+                    errorMessage: null,
+                    erroredProperties: []
                 };
                 dispatch(addMessage(botMessage));
             }, 1000);

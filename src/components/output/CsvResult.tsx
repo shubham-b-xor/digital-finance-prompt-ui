@@ -25,15 +25,15 @@ const CsvResult: FC<CsvResultProps> = ({ message }) => {
                 sx={{
                     maxWidth: '70%',
                     p: 1.5,
-                    backgroundColor: theme.palette.grey[100],
+                    backgroundColor: theme.palette.background.paper,
                     color: theme.palette.primary.dark,
                     borderRadius: 2,
                     borderTop: message.errorCode > 0 ? `4px solid ${theme.palette.error.light}` : `4px solid ${theme.palette.success.light}`,
                     whiteSpace: 'pre-wrap',
                 }}
             >
-                <Typography variant="body1">CSV:::{message.message}</Typography>
-                {(message.errorCode && message.erroredProperties) && <>
+                <Typography variant="body1">{message.message}</Typography>
+                {(message.errorCode && message.erroredProperties.length > 0) && <>
                     <Typography variant="caption">{`\nThese columns are causing error:`}</Typography>
                     <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                         {message.erroredProperties.map((column) => (

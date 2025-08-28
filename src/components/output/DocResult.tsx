@@ -23,7 +23,7 @@ const DocResult: FC<DocResultProps> = ({ message }) => {
                 sx={{
                     maxWidth: '70%',
                     p: 1.5,
-                    backgroundColor: theme.palette.grey[100],
+                    backgroundColor: theme.palette.background.paper,
                     color: theme.palette.primary.dark,
                     borderRadius: 2,
                     borderTop: message.errorCode > 0 ? `4px solid ${theme.palette.error.light}` : `4px solid ${theme.palette.success.light}`,
@@ -31,7 +31,7 @@ const DocResult: FC<DocResultProps> = ({ message }) => {
                 }}
             >
                 <Typography variant="body1">{message.message}</Typography>
-                {(message.errorCode && message.erroredProperties) && <>
+                {(message.errorCode && message.erroredProperties.length > 0) && <>
                     <Typography variant="caption">{`\nThese columns are causing error:`}</Typography>
                     <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                         {message.erroredProperties.map((column) => (
