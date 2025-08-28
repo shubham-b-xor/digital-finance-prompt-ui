@@ -1,13 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UIState {
   darkMode: boolean;
   sidebarOpen: boolean;
+  mockServerToggle: string;
 }
 
 const initialState: UIState = {
   darkMode: false,
   sidebarOpen: false,
+  mockServerToggle: 'success',
 };
 
 const uiSlice = createSlice({
@@ -20,8 +22,11 @@ const uiSlice = createSlice({
     toggleSidebar: (state) => {
       state.sidebarOpen = !state.sidebarOpen;
     },
+    setMockServerToggle(state, action: PayloadAction<string>) {
+      state.mockServerToggle = action.payload;
+    },
   },
 });
 
-export const { toggleDarkMode, toggleSidebar } = uiSlice.actions;
+export const { toggleDarkMode, toggleSidebar, setMockServerToggle } = uiSlice.actions;
 export default uiSlice.reducer;

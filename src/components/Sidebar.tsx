@@ -103,7 +103,6 @@ const Sidebar: React.FC = () => {
                     <Divider />
                 </Box>
             </Box>
-            {/* Toggle Theme Button at Bottom */}
             <Box sx={{ p: 2, textAlign: 'center' }}>
                 <IconButton onClick={() => dispatch(toggleDarkMode())} color="inherit">
                     {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}

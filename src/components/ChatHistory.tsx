@@ -1,12 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Box, Typography, Paper, useTheme } from '@mui/material';
-
-type ChatMessage = {
-    id: string;
-    sender: 'user' | 'bot';
-    text: string;
-    fileName?: string;
-};
+import { ChatMessage } from '../types';
+import Result from './output/Result';
 
 interface ChatHistoryProps {
     messages: ChatMessage[];
@@ -32,9 +27,8 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({ messages }) => {
                 height: 0,
                 minHeight: 0,
                 overflowY: 'auto',
+                maxWidth: 1000,
                 width: '100%',
-                mb: 2,
-                px: 10,
 
                 '&::-webkit-scrollbar': {
                     width: 8,
@@ -53,39 +47,9 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({ messages }) => {
             }}
 
         >
-            
-            {messages.map(({ id, sender, text, fileName }) => {
-                const isUser = sender === 'user';
+            {messages.map((message) => {
                 return (
-                    <Box
-                        key={id}
-                        sx={{
-                            display: 'flex',
-                            justifyContent: isUser ? 'flex-end' : 'flex-start',
-                            mb: 1,
-                        }}
-                    >
-                        <Paper
-                            elevation={1}
-                            sx={{
-                                maxWidth: '70%',
-                                p: 1.5,
-                                backgroundColor: isUser
-                                    ? theme.palette.primary.main
-                                    : theme.palette.grey[400],
-                                color: isUser ? theme.palette.primary.contrastText : 'inherit',
-                                borderRadius: 2,
-                                whiteSpace: 'pre-wrap',
-                            }}
-                        >
-                            <Typography variant="body1">{text}</Typography>
-                            {fileName && (
-                                <Typography variant="caption" sx={{ mt: 1, display: 'block' }}>
-                                    📎 {fileName}
-                                </Typography>
-                            )}
-                        </Paper>
-                    </Box>
+                    <Result message={message} />
                 );
             })}
         </Box>

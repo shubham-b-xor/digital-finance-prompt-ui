@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-type ChatMessage = {
-  id: string;
-  sender: 'user' | 'bot';
-  text: string;
-  fileName?: string;
-};
+import { ChatMessage } from '../types';
 
 interface ChatState {
   messages: ChatMessage[];

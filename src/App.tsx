@@ -35,6 +35,7 @@ const App: React.FC = () => {
                 justifyContent: messages.length === 0 ? 'center' : 'flex-end',
                 alignItems: 'center',
                 minHeight: 0,
+                backgroundColor: 'transparent'
               }}
             >
               <Routes>

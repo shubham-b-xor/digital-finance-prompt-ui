@@ -9,7 +9,8 @@ import {
     TextField,
     Button,
     Select,
-    MenuItem} from '@mui/material';
+    MenuItem
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import {
@@ -105,11 +106,11 @@ const Settings: React.FC = () => {
                     <Paper elevation={3} style={{ padding: 20, marginBottom: 20 }}>
                         <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
                             <Typography>filename.ttl</Typography>
-                            <Button variant="outlined" size="small">Download (12 KB)</Button>
+                            <Button variant="text" color='success' size="small">Download (12 KB)</Button>
                         </Box>
                         <Box display="flex" justifyContent="space-between" alignItems="center">
                             <Typography>filename.jsonld</Typography>
-                            <Button variant="outlined" size="small">Download (8 KB)</Button>
+                            <Button variant="text" size="small" color='success'>Download (8 KB)</Button>
                         </Box>
                     </Paper>
                 </Grid>
