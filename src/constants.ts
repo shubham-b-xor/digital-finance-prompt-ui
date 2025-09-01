@@ -1,0 +1,1 @@
+export const MOCK_SERVER_URL = process.env.MOCK_SERVER_URL || 'http://localhost:8000';

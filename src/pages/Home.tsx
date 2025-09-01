@@ -4,6 +4,7 @@ import { addMessage } from "../redux/chatSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { v4 as uuidv4 } from 'uuid';
 import { ChatMessage, PromptResponse } from "../types";
+import { MOCK_SERVER_URL } from "../constants";
 
 const Home: React.FC = () => {
     const messages = useAppSelector((state) => state.chat.messages);
@@ -32,7 +33,7 @@ const Home: React.FC = () => {
                 });
             }
             try {
-                const response = await fetch('http://localhost:8000/submitPrompt', {
+                const response = await fetch(`${MOCK_SERVER_URL}/submitPrompt`, {
                     method: 'POST',
                     body: formData,
                 });
