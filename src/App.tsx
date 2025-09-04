@@ -7,10 +7,12 @@ import Sidebar from './components/Sidebar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Settings from './pages/Settings';
 import Home from './pages/Home';
+import History from './pages/History';
+import MasterConfiguration from './pages/MasterConfiguration';
+import FileUpload from './pages/FileUpload';
 
 const App: React.FC = () => {
   const darkMode = useAppSelector((state) => state.ui.darkMode);
-  const messages = useAppSelector((state) => state.chat.messages);
   const theme = getTheme(darkMode ? 'dark' : 'light');
 
   return (
@@ -25,14 +27,15 @@ const App: React.FC = () => {
               component="main"
               sx={{
                 flexGrow: 1,
-                p: 2,
+                m: 2,
+                p: 1,
                 transition: theme.transitions.create('margin', {
                   easing: theme.transitions.easing.sharp,
                   duration: theme.transitions.duration.leavingScreen,
                 }),
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: messages.length === 0 ? 'center' : 'flex-end',
+                justifyContent: 'flex-end',
                 alignItems: 'center',
                 minHeight: 0,
                 backgroundColor: 'transparent'
@@ -42,6 +45,18 @@ const App: React.FC = () => {
                 <Route
                   path="/"
                   element={<Home />}
+                />
+                <Route
+                  path="/history"
+                  element={<History />}
+                />
+                <Route
+                  path="/master-configuration"
+                  element={<MasterConfiguration />}
+                />
+                <Route
+                  path="/file-upload"
+                  element={<FileUpload />}
                 />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/digital-finance-prompt-ui" element={<Home />} />

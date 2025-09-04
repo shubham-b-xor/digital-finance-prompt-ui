@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, Typography, Paper, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import { ChatMessage } from '../types';
 import Result from './output/Result';
 
@@ -10,7 +10,6 @@ interface ChatHistoryProps {
 const ChatHistory: React.FC<ChatHistoryProps> = ({ messages }) => {
     const theme = useTheme();
     const scrollRef = useRef<HTMLDivElement>(null);
-    const endRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         scrollRef.current?.scrollTo({

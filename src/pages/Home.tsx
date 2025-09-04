@@ -1,14 +1,24 @@
 import ChatHistory from "../components/ChatHistory";
 import PromptInput from "../components/PromptInput";
-import { addMessage } from "../redux/chatSlice";
+import { addMessage, clearMessages, removeMessage } from "../redux/chatSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { v4 as uuidv4 } from 'uuid';
-import { ChatMessage, PromptResponse } from "../types";
-import { MOCK_SERVER_URL } from "../constants";
+import { ChatMessage } from "../types";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
+import EmptyChatHistory from "../components/EmptyChatHistory";
+import { useNavigate } from "react-router-dom";
+import { customResponse } from "../mocks/customResponse";
 
 const Home: React.FC = () => {
     const messages = useAppSelector((state) => state.chat.messages);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const handleNewChat = () => {
+        dispatch(clearMessages());
+        navigate('/');
+    };
 
     const handleSend = async (prompt: string, files?: File[], mockServerToggle?: string) => {
         const userMessage: ChatMessage = {
@@ -33,23 +43,29 @@ const Home: React.FC = () => {
                 });
             }
             try {
-                const response = await fetch(`${MOCK_SERVER_URL}/submitPrompt`, {
-                    method: 'POST',
-                    body: formData,
-                });
-                console.log('Response:', response);
-                const data: PromptResponse = await response.json();
-                console.log('Data:', data);
-                const botMessage: ChatMessage = {
+                const lazyMessage: ChatMessage = {
                     id: uuidv4(),
                     sender: 'bot',
-                    message: data.message ?? data.errorMessage,
-                    errorCode: data.errorCode,
-                    type: data.type,
-                    erroredProperties: data.erroredProperties,
-                    errorMessage: null
+                    message: `Processing...`,
+                    errorCode: -1,
+                    type: 'text/csv',
+                    errorMessage: null,
+                    erroredProperties: []
                 };
-                dispatch(addMessage(botMessage));
+                dispatch(addMessage(lazyMessage));
+                setTimeout(() => {
+                    const botMessage: ChatMessage = {
+                        id: uuidv4(),
+                        sender: 'bot',
+                        message: `${customResponse["unstructured-success"]}`,
+                        errorCode: -1,
+                        type: 'text/csv',
+                        errorMessage: null,
+                        erroredProperties: []
+                    };
+                    dispatch(removeMessage());
+                    dispatch(addMessage(botMessage));
+                }, 2000);
             } catch (error) {
                 console.error('Error submitting prompt:', error);
                 const botMessage: ChatMessage = {
@@ -79,16 +95,36 @@ const Home: React.FC = () => {
 
     return (
         <>
-            {
-                messages.length === 0 ? (
-                    <PromptInput displayHelp={true} onSend={handleSend} />
-                ) : (
-                    <>
-                        <ChatHistory messages={messages} />
-                        <PromptInput displayHelp={false} onSend={handleSend} />
-                    </>
-                )
-            }
+            <Box
+                sx={{
+                    display: 'block',
+                    maxWidth: 1000,
+                    width: '100%',
+                    p: 0,
+                }}
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        mb: 1,
+                    }}
+                >
+                    <Typography color='textSecondary' variant="h5" gutterBottom>
+                        <ChatBubbleOutlineRoundedIcon fontSize='small' sx={{ marginRight: 2 }} color='info' /> Chat
+                    </Typography>
+
+                    <Stack direction="row" spacing={1}>
+                        <Button variant="outlined" color='info' size="small" onClick={handleNewChat}>
+                            New Chat
+                        </Button>
+                    </Stack>
+                </Box>
+            </Box>
+            {messages.length === 0 ? <EmptyChatHistory /> :
+                <ChatHistory messages={messages} />}
+            <PromptInput displayHelp={false} onSend={handleSend} />
         </>
     )
 }

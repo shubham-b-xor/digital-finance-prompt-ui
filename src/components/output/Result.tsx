@@ -1,4 +1,3 @@
-import { Box, Paper, Typography, useTheme } from "@mui/material";
 import { ChatMessage } from "../../types";
 import UserMessage from "./UserMessage";
 import React from "react";
@@ -10,7 +9,6 @@ interface ResultProps {
 }
 
 const Result: React.FC<ResultProps> = ({ message }) => {
-    const theme = useTheme();
     const isUser = message.sender === 'user';
     console.log('Rendering message: ', message);
     console.log('Rendering message: ', message.type);

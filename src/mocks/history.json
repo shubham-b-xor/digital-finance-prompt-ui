@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Stock Market Overview",
+    "description": "Discussed market trends and stock performance for Q3.",
+    "messageCount": 24,
+    "accuracyPercentage": 92.5,
+    "timestamp": "September 2, 14:45"
+  },
+  {
+    "title": "Retirement Planning",
+    "description": "Explored long-term investment options and retirement funds.",
+    "messageCount": 18,
+    "accuracyPercentage": 88.7,
+    "timestamp": "August 30, 10:30"
+  },
+  {
+    "title": "Crypto Market Insights",
+    "description": "Analyzed recent fluctuations in Bitcoin and Ethereum.",
+    "messageCount": 32,
+    "accuracyPercentage": 90.1,
+    "timestamp": "August 28, 19:05"
+  },
+  {
+    "title": "Personal Budget Review",
+    "description": "Reviewed monthly spending and optimized saving strategy.",
+    "messageCount": 15,
+    "accuracyPercentage": 95.0,
+    "timestamp": "August 25, 09:20"
+  },
+  {
+    "title": "ETF vs Mutual Funds",
+    "description": "Compared pros and cons for medium-term investment goals.",
+    "messageCount": 21,
+    "accuracyPercentage": 91.3,
+    "timestamp": "August 22, 16:55"
+  }
+]

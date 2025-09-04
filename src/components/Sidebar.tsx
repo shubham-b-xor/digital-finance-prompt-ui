@@ -7,26 +7,28 @@ import {
     ListItemButton,
     Toolbar,
     Box,
-    Divider,
     IconButton,
     Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import SettingsIcon from '@mui/icons-material/Settings';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import ShieldRoundedIcon from '@mui/icons-material/ShieldRounded';
+import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { toggleSidebar } from '../redux/uiSlice';
-import { toggleDarkMode } from '../redux/uiSlice';
 import { clearMessages } from '../redux/chatSlice';
 import { useNavigate } from 'react-router-dom';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
+
+const ListItemButtonStyle = { borderRadius: 2, marginLeft: 2, marginRight: 2, marginBottom: 0, boxShadow: 0};
 
 const Sidebar: React.FC = () => {
     const sidebarOpen = useAppSelector((state) => state.ui.sidebarOpen);
-    const darkMode = useAppSelector((state) => state.ui.darkMode);
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
@@ -36,14 +38,20 @@ const Sidebar: React.FC = () => {
     };
 
     const handleSettings = () => {
-        navigate('/settings');
-        dispatch(toggleSidebar());
+        navigate('/master-configuration');
+    };
+
+    const handleFileUpload = () => {
+        navigate('/file-upload');
+    };
+
+    const handleHistory = () => {
+        navigate('/history');
     };
 
     const handleNewChat = () => {
         dispatch(clearMessages());
         navigate('/');
-        dispatch(toggleSidebar());
     };
 
     if (!sidebarOpen) {
@@ -77,11 +85,12 @@ const Sidebar: React.FC = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        px: [1],
+                        px: [1]
                     }}
                 >
+                    <StorageRoundedIcon color='primary'/>
                     <Typography variant="h6" noWrap component="div">
-                        History
+                        Knowledge Manager
                     </Typography>
                     <IconButton onClick={handleClose} aria-label="close sidebar">
                         <CloseIcon />
@@ -90,23 +99,41 @@ const Sidebar: React.FC = () => {
                 <Box sx={{ overflow: 'auto' }}>
                     <List>
                         <ListItem disablePadding>
-                            <ListItemButton sx={{ borderRadius: 2, marginLeft: 2, marginRight: 2, marginBottom: 2, boxShadow: 4 }} onClick={handleNewChat}>
-                                <PlaylistAddIcon sx={{ marginRight: 2 }} /><ListItemText primary="New Chat" />
+                            <ListItemButton disabled sx={ListItemButtonStyle} onClick={handleNewChat}>
+                                <PersonRoundedIcon color='success' sx={{ marginRight: 2 }} /><ListItemText primary="User Module" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton sx={{ borderRadius: 2, marginLeft: 2, marginRight: 2, marginBottom: 2, boxShadow: 4 }} onClick={handleSettings}>
-                                <SettingsIcon sx={{ marginRight: 2 }} /><ListItemText primary="Settings" />
+                            <ListItemButton sx={ListItemButtonStyle} onClick={handleNewChat}>
+                                <SearchRoundedIcon color='success' sx={{ marginRight: 2 }} /><ListItemText primary="Query Interface" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton sx={ListItemButtonStyle} onClick={handleHistory}>
+                                <ScheduleRoundedIcon color='success' sx={{ marginRight: 2 }} /><ListItemText primary="History" />
                             </ListItemButton>
                         </ListItem>
                     </List>
-                    <Divider />
                 </Box>
             </Box>
             <Box sx={{ p: 2, textAlign: 'center' }}>
-                <IconButton onClick={() => dispatch(toggleDarkMode())} color="inherit">
-                    {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-                </IconButton>
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemButton disabled sx={ListItemButtonStyle} onClick={handleNewChat}>
+                            <ShieldRoundedIcon color='primary' sx={{ marginRight: 2 }} /><ListItemText primary="Admin Module" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton sx={ListItemButtonStyle} onClick={handleSettings}>
+                            <SettingsRoundedIcon color='primary' sx={{ marginRight: 2 }} /><ListItemText primary="Master Configuration" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton sx={ListItemButtonStyle} onClick={handleFileUpload}>
+                            <FileUploadRoundedIcon color='primary' sx={{ marginRight: 2 }} /><ListItemText primary="File Upload" />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
             </Box>
         </Drawer>
     );

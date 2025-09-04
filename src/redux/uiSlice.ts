@@ -7,8 +7,8 @@ interface UIState {
 }
 
 const initialState: UIState = {
-  darkMode: false,
-  sidebarOpen: false,
+  darkMode: true,
+  sidebarOpen: true,
   mockServerToggle: 'success',
 };
 
