@@ -25,6 +25,7 @@ import {
     addFiles,
     removeFile,
 } from '../redux/fileUploadSlice';
+import EmptyFileList from '../components/EmptyFileList';
 
 const FileUploadPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -54,12 +55,19 @@ const FileUploadPage: React.FC = () => {
     const handleStartProcessing = () => {
         alert(`Start processing ${uploadedFiles.length} files for domain "${domain}"`);
     };
+    console.log('uploadedFiles: ', uploadedFiles);
+    console.log('uploadedFiles: ', uploadedFiles.length);
 
     return (
-        <Box sx={{
-            maxWidth: 1000,
-            width: '100%'
-        }} mx="auto" p={0}>
+        <Box
+            sx={{
+                height: '100%',
+                maxWidth: 1000,
+                width: '100%',
+                p: 0,
+            }}
+            mx="auto"
+        >
             <Typography variant="h4" color="textSecondary" gutterBottom>
                 File Upload
             </Typography>
@@ -146,36 +154,42 @@ const FileUploadPage: React.FC = () => {
                     <Typography variant="caption" color="textSecondary" gutterBottom>
                         {uploadedFiles.length} file(s) ready for processing
                     </Typography>
+                    {uploadedFiles.length === 0 ? (
+                        <EmptyFileList />
+                    ) : (
+                        <>
+                            <List>
+                                {uploadedFiles.map(({ id, name, size }) => (
+                                    <Card
+                                        key={id}
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            mb: 2,
+                                            px: 2,
+                                            py: 1,
+                                        }}
+                                    >
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                <UploadFileIcon />
+                                            </Avatar>
+                                        </ListItemAvatar>
 
-                    <List>
-                        {uploadedFiles.map(({ id, name, size }) => (
-                            <Card
-                                key={id}
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    mb: 2,
-                                    px: 2,
-                                    py: 1,
-                                }}
-                            >
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <UploadFileIcon />
-                                    </Avatar>
-                                </ListItemAvatar>
+                                        <ListItemText
+                                            primary={name}
+                                            secondary={`${(size / 1024).toFixed(2)} KB`}
+                                        />
 
-                                <ListItemText
-                                    primary={name}
-                                    secondary={`${(size / 1024).toFixed(2)} KB`}
-                                />
+                                        <IconButton edge="end" onClick={() => handleDeleteFile(id)}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Card>
+                                ))}
+                            </List>
+                        </>
+                    )}
 
-                                <IconButton edge="end" onClick={() => handleDeleteFile(id)}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Card>
-                        ))}
-                    </List>
                 </Box>
             </Box>
         </Box>

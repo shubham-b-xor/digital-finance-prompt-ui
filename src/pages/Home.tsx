@@ -17,7 +17,7 @@ const Home: React.FC = () => {
 
     const handleNewChat = () => {
         dispatch(clearMessages());
-        navigate('/digital-finance-prompt-ui');
+        navigate('/chat');
     };
 
     const handleSend = async (prompt: string, files?: File[], mockServerToggle?: string) => {

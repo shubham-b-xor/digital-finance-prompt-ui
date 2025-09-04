@@ -18,7 +18,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
+      <Router basename="/digital-finance-prompt-ui">
         <Box display="flex" flexDirection="column" height="100vh">
           <TopBar />
           <Box display="flex" flex={1}>
@@ -41,7 +41,7 @@ const App: React.FC = () => {
                 backgroundColor: 'transparent'
               }}
             >
-              <Routes>
+              <Routes >
                 <Route
                   path="/"
                   element={<Home />}
@@ -59,7 +59,7 @@ const App: React.FC = () => {
                   element={<FileUpload />}
                 />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="/digital-finance-prompt-ui" element={<Home />} />
+                <Route path="/chat" element={<Home />} />
               </Routes>
             </Box>
           </Box>

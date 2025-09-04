@@ -17,10 +17,10 @@ const History: React.FC = () => {
             >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Typography color="textSecondary" variant="h5" gutterBottom>
-                       <ScheduleRoundedIcon
-                        fontSize="small"
-                        color="info"
-                    /> Recent Queries
+                        <ScheduleRoundedIcon
+                            fontSize="small"
+                            color="info"
+                        /> Recent Queries
                     </Typography>
                 </Box>
             </Box>

@@ -51,7 +51,7 @@ const Sidebar: React.FC = () => {
 
     const handleNewChat = () => {
         dispatch(clearMessages());
-        navigate('/digital-finance-prompt-ui');
+        navigate('/chat');
     };
 
     if (!sidebarOpen) {
