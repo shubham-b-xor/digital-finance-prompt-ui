@@ -77,7 +77,7 @@ const PromptInputV1: React.FC<PromptInputProps> = ({ onSend }) => {
                 display: 'flex',
                 flexDirection: 'column',
                 bgcolor: 'background.paper',
-                p: 2,
+                p: 1,
                 borderRadius: 2,
                 boxShadow: 3,
             }}
@@ -96,10 +96,12 @@ const PromptInputV1: React.FC<PromptInputProps> = ({ onSend }) => {
                     sx={{
                         bgcolor: theme.palette.mode === 'dark' ? 'background.default' : 'background.paper',
                         mb: 1,
+                        p:0
                     }}
                     InputProps={{
                         sx: {
                             color: theme.palette.text.primary,
+                            p:1,
                         },
                     }}
                 />
@@ -146,7 +148,7 @@ const PromptInputV1: React.FC<PromptInputProps> = ({ onSend }) => {
                                 />
                             ))
                         ) : (
-                            <Typography color="textSecondary">No files attached</Typography>
+                            <Typography variant="caption" color="textSecondary">No files attached</Typography>
                         )}
                     </Box>
                     <Button

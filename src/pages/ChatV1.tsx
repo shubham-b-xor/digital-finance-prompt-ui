@@ -1,6 +1,5 @@
 import ChatHistory from "../components/ChatHistory";
-import PromptInput from "../components/PromptInput";
-import { addMessage, clearMessages, removeMessage } from "../redux/chatSlice";
+import { addMessage, removeMessage } from "../redux/chatSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { v4 as uuidv4 } from 'uuid';
 import { ChatMessage } from "../types";
@@ -11,8 +10,8 @@ import { customResponse } from "../mocks/customResponse";
 import PromptInputV1 from "../components/PromptInputV1";
 import { setAwaitingResponse, setIsNewChatDialog } from "../redux/uiSlice";
 import NewChatDialog from "../components/NewChatDialog";
-import { useEffect } from "react";
 import { clearFiles } from "../redux/fileUploadSlice";
+import { Add } from "@mui/icons-material";
 
 const ChatV1: React.FC = () => {
     const messages = useAppSelector((state) => state.chat.messages);
@@ -132,7 +131,7 @@ const ChatV1: React.FC = () => {
                     </Typography>
 
                     <Stack direction="row" spacing={1}>
-                        <Button variant="outlined" color='info' size="small" onClick={handleNewChat}>
+                        <Button variant="outlined" endIcon={<Add />} color='info' size="small" onClick={handleNewChat}>
                             New Chat
                         </Button>
                     </Stack>

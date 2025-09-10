@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import SmartToyRoundedIcon from '@mui/icons-material/SmartToyRounded';
-import AssistantIcon from '@mui/icons-material/Assistant';
 
 
 const EmptyChatHistory: React.FC = () => {
@@ -20,7 +19,6 @@ const EmptyChatHistory: React.FC = () => {
                 alignItems: 'center',
                 textAlign: 'center',
             }}
-
         >
             <SmartToyRoundedIcon color='disabled' fontSize='large' />
             <Typography color='textSecondary' variant="h6" gutterBottom>
