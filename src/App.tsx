@@ -28,8 +28,8 @@ const App: React.FC = () => {
               component="main"
               sx={{
                 flexGrow: 1,
-                m: 2,
-                p: 1,
+                m: 1,
+                p: 0,
                 transition: theme.transitions.create('margin', {
                   easing: theme.transitions.easing.sharp,
                   duration: theme.transitions.duration.leavingScreen,
