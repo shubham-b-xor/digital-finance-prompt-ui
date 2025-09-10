@@ -24,7 +24,7 @@ const TopBar: React.FC = () => {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" component="div">
-                    Knowledge Manager
+                    Digital Finance
                 </Typography>
             </Toolbar>
         </AppBar>

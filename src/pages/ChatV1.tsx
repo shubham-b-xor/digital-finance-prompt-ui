@@ -7,20 +7,23 @@ import { ChatMessage } from "../types";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import EmptyChatHistory from "../components/EmptyChatHistory";
-import { useNavigate } from "react-router-dom";
 import { customResponse } from "../mocks/customResponse";
+import PromptInputV1 from "../components/PromptInputV1";
+import { setAwaitingResponse, setIsNewChatDialog } from "../redux/uiSlice";
+import NewChatDialog from "../components/NewChatDialog";
+import { useEffect } from "react";
+import { clearFiles } from "../redux/fileUploadSlice";
 
-const Home: React.FC = () => {
+const ChatV1: React.FC = () => {
     const messages = useAppSelector((state) => state.chat.messages);
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     const handleNewChat = () => {
-        dispatch(clearMessages());
-        navigate('/chat-v1');
+        dispatch(setIsNewChatDialog(true));
     };
 
     const handleSend = async (prompt: string, files?: File[], mockServerToggle?: string) => {
+
         const userMessage: ChatMessage = {
             id: uuidv4(),
             sender: 'user',
@@ -30,6 +33,16 @@ const Home: React.FC = () => {
             errorMessage: null,
             erroredProperties: []
         };
+
+        const lazyMessage: ChatMessage = {
+                    id: uuidv4(),
+                    sender: 'bot',
+                    message: `... Hang tight, we’re on it!`,
+                    errorCode: -1,
+                    type: 'loading',
+                    errorMessage: null,
+                    erroredProperties: []
+                };
 
         dispatch(addMessage(userMessage));
 
@@ -43,16 +56,9 @@ const Home: React.FC = () => {
                 });
             }
             try {
-                const lazyMessage: ChatMessage = {
-                    id: uuidv4(),
-                    sender: 'bot',
-                    message: `Processing...`,
-                    errorCode: -1,
-                    type: 'text/csv',
-                    errorMessage: null,
-                    erroredProperties: []
-                };
+                
                 dispatch(addMessage(lazyMessage));
+                dispatch(setAwaitingResponse(true));
                 setTimeout(() => {
                     const botMessage: ChatMessage = {
                         id: uuidv4(),
@@ -64,8 +70,10 @@ const Home: React.FC = () => {
                         erroredProperties: []
                     };
                     dispatch(removeMessage());
+                    dispatch(clearFiles());
                     dispatch(addMessage(botMessage));
-                }, 2000);
+                    dispatch(setAwaitingResponse(false));
+                }, 4000);
             } catch (error) {
                 console.error('Error submitting prompt:', error);
                 const botMessage: ChatMessage = {
@@ -79,19 +87,27 @@ const Home: React.FC = () => {
                 dispatch(addMessage(botMessage));
             }
         } else {
+            dispatch(addMessage(lazyMessage));
+            dispatch(setAwaitingResponse(true));
             setTimeout(() => {
                 const botMessage: ChatMessage = {
                     id: uuidv4(),
                     sender: 'bot',
-                    message: `You said: "${prompt}"`,
+                    message: `${customResponse["unstructured-failed"]}`,
                     errorCode: -1,
+                    type: 'text/csv',
                     errorMessage: null,
                     erroredProperties: []
                 };
+                dispatch(removeMessage());
                 dispatch(addMessage(botMessage));
-            }, 1000);
+                dispatch(setAwaitingResponse(false));
+            }, 4000);
         }
+
     };
+
+
 
     return (
         <>
@@ -124,9 +140,10 @@ const Home: React.FC = () => {
             </Box>
             {messages.length === 0 ? <EmptyChatHistory /> :
                 <ChatHistory messages={messages} />}
-            <PromptInput displayHelp={false} onSend={handleSend} />
+            <PromptInputV1 displayHelp={false} onSend={handleSend} />
+            <NewChatDialog />
         </>
     )
 }
 
-export default Home;
+export default ChatV1;

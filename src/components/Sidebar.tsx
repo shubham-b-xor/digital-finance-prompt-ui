@@ -51,7 +51,7 @@ const Sidebar: React.FC = () => {
 
     const handleNewChat = () => {
         dispatch(clearMessages());
-        navigate('/chat');
+        navigate('/');
     };
 
     if (!sidebarOpen) {
@@ -90,7 +90,7 @@ const Sidebar: React.FC = () => {
                 >
                     <StorageRoundedIcon color='primary'/>
                     <Typography variant="h6" noWrap component="div">
-                        Knowledge Manager
+                        Digital Finance
                     </Typography>
                     <IconButton onClick={handleClose} aria-label="close sidebar">
                         <CloseIcon />
@@ -105,12 +105,7 @@ const Sidebar: React.FC = () => {
                         </ListItem>
                         <ListItem disablePadding>
                             <ListItemButton sx={ListItemButtonStyle} onClick={handleNewChat}>
-                                <SearchRoundedIcon color='success' sx={{ marginRight: 2 }} /><ListItemText primary="Query Interface" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton sx={ListItemButtonStyle} onClick={handleHistory}>
-                                <ScheduleRoundedIcon color='success' sx={{ marginRight: 2 }} /><ListItemText primary="History" />
+                                <SearchRoundedIcon color='success' sx={{ marginRight: 2 }} /><ListItemText primary="Chat Interface" />
                             </ListItemButton>
                         </ListItem>
                     </List>
@@ -126,11 +121,6 @@ const Sidebar: React.FC = () => {
                     <ListItem disablePadding>
                         <ListItemButton sx={ListItemButtonStyle} onClick={handleSettings}>
                             <SettingsRoundedIcon color='primary' sx={{ marginRight: 2 }} /><ListItemText primary="Master Configuration" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton sx={ListItemButtonStyle} onClick={handleFileUpload}>
-                            <FileUploadRoundedIcon color='primary' sx={{ marginRight: 2 }} /><ListItemText primary="File Upload" />
                         </ListItemButton>
                     </ListItem>
                 </List>

@@ -1,6 +1,6 @@
 export type ChatMessage = {
     id: string;
-    type?: 'application/pdf' | 'text/csv' | 'unknown';
+    type?: 'application/pdf' | 'text/csv' | 'unknown' | 'loading';
     sender: 'user' | 'bot';
     message?: string | null;
     fileName?: string;

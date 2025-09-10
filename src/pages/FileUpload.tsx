@@ -44,7 +44,7 @@ const FileUploadPage: React.FC = () => {
         if (event.target.files && event.target.files.length > 0) {
             const filesArray = Array.from(event.target.files);
             dispatch(addFiles(filesArray));
-            event.target.value = ''; // reset input so same files can be re-uploaded
+            event.target.value = ''; 
         }
     };
 
@@ -124,7 +124,7 @@ const FileUploadPage: React.FC = () => {
                             Click or Drag files here to upload
                         </Typography>
                         <Typography variant="caption" color="textSecondary">
-                            Supported files: PDF, DOCX, TXT, PNG, JPG
+                            Supported files: PDF, DOCX, CSV, DOC, DOCX
                         </Typography>
                         <input
                             type="file"

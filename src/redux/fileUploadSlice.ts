@@ -4,7 +4,7 @@ interface UploadedFile {
   id: string;
   name: string;
   size: number;
-  domain: string;
+  domain?: string;
   file: File;
 }
 
@@ -32,7 +32,6 @@ const fileUploadSlice = createSlice({
           id,
           name: file.name,
           size: file.size,
-          domain: state.domain,
           file,
         });
       });

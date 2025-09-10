@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import History from './pages/History';
 import MasterConfiguration from './pages/MasterConfiguration';
 import FileUpload from './pages/FileUpload';
+import ChatV1 from './pages/ChatV1';
 
 const App: React.FC = () => {
   const darkMode = useAppSelector((state) => state.ui.darkMode);
@@ -44,7 +45,7 @@ const App: React.FC = () => {
               <Routes >
                 <Route
                   path="/"
-                  element={<Home />}
+                  element={<ChatV1 />}
                 />
                 <Route
                   path="/history"
@@ -60,6 +61,7 @@ const App: React.FC = () => {
                 />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/chat" element={<Home />} />
+                <Route path="/chat-v1" element={<ChatV1 />} />
               </Routes>
             </Box>
           </Box>
