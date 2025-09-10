@@ -12,10 +12,8 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import ShieldRoundedIcon from '@mui/icons-material/ShieldRounded';
-import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
@@ -39,14 +37,6 @@ const Sidebar: React.FC = () => {
 
     const handleSettings = () => {
         navigate('/master-configuration');
-    };
-
-    const handleFileUpload = () => {
-        navigate('/file-upload');
-    };
-
-    const handleHistory = () => {
-        navigate('/history');
     };
 
     const handleNewChat = () => {
